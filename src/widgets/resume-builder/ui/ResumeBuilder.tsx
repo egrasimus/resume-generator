@@ -1,5 +1,5 @@
 import { ResumeForm, ResumePreview, useResumeState } from "@/entities/resume"
-import React from "react"
+import { DownloadButton } from "@/features/download-pdf"
 
 export const ResumeBuilder = () => {
 	const { data, setData } = useResumeState()
@@ -15,7 +15,7 @@ export const ResumeBuilder = () => {
 		>
 			<div style={{ flex: 1 }}>
 				<ResumeForm data={data} setData={setData} />
-				{/* <DownloadButton /> */}
+				<DownloadButton />
 			</div>
 			<div style={{ flex: 1 }}>
 				<ResumePreview data={data} />

@@ -1,7 +1,8 @@
+import styles from "./ResumePreview.module.scss"
 
 export const ResumePreview = ({ data }) => {
 	return (
-		<div style={{ border: "1px solid #ccc", padding: "1rem" }}>
+		<div className={styles.preview} id='resume-preview'>
 			<h2>{data.fullName}</h2>
 			<h3>{data.position}</h3>
 			<p>{data.summary}</p>
