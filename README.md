@@ -1,54 +1,62 @@
-# React + TypeScript + Vite
+# 📝 Resume Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Веб-приложение для быстрого создания и скачивания резюме в формате PDF. Разработано с использованием React, TypeScript, Vite и архитектурного подхода Feature-Sliced Design (FSD).
 
-Currently, two official plugins are available:
+![preview](./public/preview.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Функциональность
 
-## Expanding the ESLint configuration
+- Заполнение информации: ФИО, позиция, опыт, навыки, образование, контакты  
+- Мгновенное превью готового резюме  
+- Генерация PDF одним кликом (через html2pdf.js)  
+- Локальное хранение состояния (без бэкенда)  
+- Модульные стили с использованием SCSS  
+- Архитектура проекта по принципам FSD  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Стек технологий
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- React  
+- TypeScript  
+- Vite  
+- html2pdf.js  
+- SCSS Modules  
+- Feature-Sliced Design  
+
+## 📁 Структура проекта (FSD)
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+src/
+├── app/               # Точка входа и инициализация
+├── pages/             # Страницы приложения
+├── widgets/           # Составные части интерфейса
+├── features/          # Независимые функциональные блоки
+├── entities/          # Сущности предметной области
+├── shared/            # Общие компоненты, утилиты, стили
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+````
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## ⚙️ Установка и запуск
+
+```bash
+git clone https://github.com/your-username/resume-generator.git
+cd resume-generator
+npm install
+npm run dev
+````
+
+## 📄 Генерация PDF
+
+Используется html2pdf.js — HTML блок с id="resume-preview" захватывается и преобразуется в PDF.
+
+## 📜 Лицензия
+
+MIT License — свободное использование с указанием авторства.
+
+## 👨‍💻 Автор
+
+**Егор Шестаков**
+
+Telegram: [@egrasimus](https://t.me/egrasimus)
+
+Резюме на хабре: [Habr Career](https://career.habr.com/egrasimus)
