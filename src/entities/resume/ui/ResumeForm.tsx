@@ -3,6 +3,29 @@ import { Formik, Form, Field } from "formik"
 import styles from "./ResumeForm.module.scss"
 import { DownloadButton } from "@/features/download-pdf"
 
+const STORAGE_KEY = "resumeFormData"
+
+const loadFromStorage = (defaultData) => {
+	try {
+		const saved = localStorage.getItem(STORAGE_KEY)
+		if (saved) {
+			const parsedData = JSON.parse(saved)
+			return { ...defaultData, ...parsedData }
+		}
+	} catch (error) {
+		console.error("Ошибка при загрузке данных из localStorage:", error)
+	}
+	return defaultData
+}
+
+const saveToStorage = (data) => {
+	try {
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+	} catch (error) {
+		console.error("Ошибка при сохранении данных в localStorage:", error)
+	}
+}
+
 const InputField = ({
 	name,
 	placeholder,
@@ -29,13 +52,19 @@ const InputField = ({
 )
 
 export const ResumeForm = ({ data, setData }) => {
+	const initialValues = React.useMemo(() => loadFromStorage(data), [data])
+
+	React.useEffect(() => {
+		setData(initialValues)
+	}, [])
+
 	return (
 		<div className={styles.formWrapper}>
 			<h2 className={styles.formTitle}>Создание резюме</h2>
-
-			<Formik initialValues={data} onSubmit={() => {}}>
+			<Formik initialValues={initialValues} onSubmit={() => {}}>
 				{({ values, handleChange }) => {
 					React.useEffect(() => {
+						saveToStorage(values)
 						setData(values)
 					}, [values, setData])
 
