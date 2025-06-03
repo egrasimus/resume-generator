@@ -39,7 +39,7 @@ src/
 ## ⚙️ Установка и запуск
 
 ```bash
-git clone https://github.com/your-username/resume-generator.git
+git clone https://github.com/egrasimus/resume-generator.git
 cd resume-generator
 npm install
 npm run dev
