@@ -1,6 +1,7 @@
 import React from "react"
 import { Formik, Form, Field } from "formik"
 import styles from "./ResumeForm.module.scss"
+import { DownloadButton } from "@/features/download-pdf"
 
 const InputField = ({
 	name,
@@ -120,6 +121,7 @@ export const ResumeForm = ({ data, setData }) => {
 									/>
 								</div>
 							</div>
+							<DownloadButton />
 						</Form>
 					)
 				}}

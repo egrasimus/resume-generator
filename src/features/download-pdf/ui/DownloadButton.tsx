@@ -1,6 +1,7 @@
 import React from "react"
 import { generatePdf } from "../lib/generatePdf"
 import styles from "./DownloadButton.module.scss"
+import { Button } from "@/shared/ui-components/button"
 
 export const DownloadButton = () => {
 	const handleClick = () => {
@@ -9,7 +10,7 @@ export const DownloadButton = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<button onClick={handleClick}>Скачать PDF</button>
+			<Button onClick={handleClick}>Скачать PDF</Button>
 		</div>
 	)
 }

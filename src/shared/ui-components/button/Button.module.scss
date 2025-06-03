@@ -1,0 +1,173 @@
+@use "../../styles/variables.module.scss" as *;
+
+// Дополнительные цвета для кнопок
+$success-color: #48bb78;
+$danger-color: #f56565;
+$warning-color: #ed8936;
+
+.button {
+	border-left-width: 0px;
+	border-right-width: 0px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	border-radius: $border-radius;
+	font-weight: 500;
+	font-family: inherit;
+	cursor: pointer;
+	transition: $transition;
+	text-decoration: none;
+	outline: none;
+	position: relative;
+	overflow: hidden;
+
+	&:focus {
+		box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.6;
+		transform: none !important;
+	}
+
+	&:not(:disabled):hover {
+		transform: translateY(-2px);
+	}
+
+	&:not(:disabled):active {
+		transform: translateY(0);
+	}
+}
+
+// Варианты кнопок
+.primary {
+	background: $background-gradient;
+	color: $white;
+	border-color: transparent;
+
+	&:not(:disabled):hover {
+		box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+	}
+}
+
+.secondary {
+	background: $white;
+	color: $accent-color;
+	border-color: $accent-color;
+
+	&:not(:disabled):hover {
+		background: $accent-color;
+		color: $white;
+		box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+	}
+}
+
+.outline {
+	background: transparent;
+	color: $text-color;
+	border-color: $border-color;
+
+	&:not(:disabled):hover {
+		background: $light-gray;
+		border-color: $border-hover-color;
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	}
+}
+
+.success {
+	background: $success-color;
+	color: $white;
+	border-color: transparent;
+
+	&:not(:disabled):hover {
+		background: darken($success-color, 10%);
+		box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
+	}
+}
+
+.danger {
+	background: $danger-color;
+	color: $white;
+	border-color: transparent;
+
+	&:not(:disabled):hover {
+		background: darken($danger-color, 10%);
+		box-shadow: 0 8px 25px rgba(245, 101, 101, 0.3);
+	}
+}
+
+.warning {
+	background: $warning-color;
+	color: $white;
+	border-color: transparent;
+
+	&:not(:disabled):hover {
+		background: darken($warning-color, 10%);
+		box-shadow: 0 8px 25px rgba(237, 137, 54, 0.3);
+	}
+}
+
+// Размеры кнопок
+.small {
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+	min-height: 36px;
+}
+
+.medium {
+	padding: 0.75rem 1.5rem;
+	font-size: 1rem;
+	min-height: 44px;
+}
+
+.large {
+	padding: 1rem 2rem;
+	font-size: 1.125rem;
+	min-height: 52px;
+}
+
+// Модификаторы
+.fullWidth {
+	width: 100%;
+}
+
+.loading {
+	pointer-events: none;
+}
+
+.loadingText {
+	opacity: 0.7;
+}
+
+// Спиннер для состояния загрузки
+.spinner {
+	width: 16px;
+	height: 16px;
+	border: 2px solid transparent;
+	border-top-color: currentColor;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+// Медиа-запросы
+@media (max-width: 768px) {
+	.button {
+		&.medium {
+			padding: 0.75rem 1.25rem;
+			font-size: 0.95rem;
+		}
+
+		&.large {
+			padding: 0.875rem 1.5rem;
+			font-size: 1rem;
+		}
+	}
+}

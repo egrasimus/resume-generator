@@ -15,7 +15,6 @@ export const ResumeBuilder = () => {
 		>
 			<div style={{ flex: 1 }}>
 				<ResumeForm data={data} setData={setData} />
-				<DownloadButton />
 			</div>
 			<div style={{ flex: 1 }}>
 				<ResumePreview data={data} />
