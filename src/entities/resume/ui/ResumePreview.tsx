@@ -29,7 +29,7 @@ export const ResumePreview = ({ data }) => {
 							</div>
 							<div className={styles.infoItem}>
 								<span className={styles.label}>Возраст:</span>
-								<span>{data.age} лет</span>
+								<span>{data.age}</span>
 							</div>
 						</div>
 						<div className={styles.salary}>
