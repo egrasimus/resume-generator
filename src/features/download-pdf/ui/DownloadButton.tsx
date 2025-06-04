@@ -1,4 +1,3 @@
-import React from "react"
 import { generatePdf } from "../lib/generatePdf"
 import styles from "./DownloadButton.module.scss"
 import { Button } from "@/shared/ui-components/button"
