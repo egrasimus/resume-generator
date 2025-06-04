@@ -1,5 +1,15 @@
 import React from "react"
 import styles from "./ResumePreview.module.scss"
+import { calculateDuration } from "@/shared/utils/dateUtils"
+
+const formatDate = (date) =>
+	date
+		? new Date(date).toLocaleDateString("ru-RU", {
+				day: "2-digit",
+				month: "2-digit",
+				year: "numeric",
+		  })
+		: "..."
 
 export const ResumePreview = ({ data }) => {
 	return (
@@ -16,7 +26,9 @@ export const ResumePreview = ({ data }) => {
 							<span>{data.location}</span>
 						</div>
 						<div className={styles.infoRow}>
-							<span className={styles.label}>Готовность к работе:</span>
+							<span className={styles.label}>
+								Готовность к удаленной работе:
+							</span>
 							<span>{data.remoteReady}</span>
 						</div>
 					</div>
@@ -93,15 +105,24 @@ export const ResumePreview = ({ data }) => {
 				</div>
 			)}
 
-			{/* Опыт работы */}
-			{data.experience && (
+			{Array.isArray(data.experience) && data.experience.length > 0 && (
 				<div className={styles.section}>
 					<h2 className={styles.sectionTitle}>Опыт работы</h2>
-					<div className={styles.content}>
-						{data.experience.split("\n").map((line, index) => (
-							<p key={index} className={styles.paragraph}>
-								{line}
-							</p>
+					<div className={styles.experienceList}>
+						{data.experience.map((job, index) => (
+							<div key={index} className={styles.experienceItem}>
+								<h3 className={styles.jobTitle}>
+									{job.role} —{" "}
+									<span className={styles.company}>{job.company}</span>
+								</h3>
+								<div className={styles.jobDuration}>{`${formatDate(
+									job.startDate
+								)} - ${formatDate(job.endDate)} (${calculateDuration(
+									job.startDate,
+									job.endDate
+								)})`}</div>
+								<p className={styles.paragraph}>{job.description}</p>
+							</div>
 						))}
 					</div>
 				</div>

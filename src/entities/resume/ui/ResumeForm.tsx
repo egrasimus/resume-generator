@@ -1,22 +1,11 @@
-import React from "react"
+import { useState, useEffect } from "react"
 import { Formik, Form, Field } from "formik"
 import styles from "./ResumeForm.module.scss"
 import { DownloadButton } from "@/features/download-pdf"
+import { WorkExperienceModal } from "@/features/work-experience-modal/ui/WorkExperienceModal"
+import { Button } from "@/shared/ui-components/button"
 
 const STORAGE_KEY = "resumeFormData"
-
-const loadFromStorage = (defaultData) => {
-	try {
-		const saved = localStorage.getItem(STORAGE_KEY)
-		if (saved) {
-			const parsedData = JSON.parse(saved)
-			return { ...defaultData, ...parsedData }
-		}
-	} catch (error) {
-		console.error("Ошибка при загрузке данных из localStorage:", error)
-	}
-	return defaultData
-}
 
 const saveToStorage = (data) => {
 	try {
@@ -52,21 +41,28 @@ const InputField = ({
 )
 
 export const ResumeForm = ({ data, setData }) => {
-	const initialValues = React.useMemo(() => loadFromStorage(data), [data])
+	const [showExperienceModal, setShowExperienceModal] = useState(false)
 
-	React.useEffect(() => {
-		setData(initialValues)
-	}, [])
+	const handleAddExperience = (newExp) => {
+		const newExperience = [...(data.experience || []), newExp]
+		const newData = { ...data, experience: newExperience }
+		setData(newData)
+		saveToStorage(newData)
+	}
+
+	const handleValuesChange = (values) => {
+		setData(values)
+		saveToStorage(values)
+	}
 
 	return (
 		<div className={styles.formWrapper}>
 			<h2 className={styles.formTitle}>Создание резюме</h2>
-			<Formik initialValues={initialValues} onSubmit={() => {}}>
-				{({ values, handleChange }) => {
-					React.useEffect(() => {
-						saveToStorage(values)
-						setData(values)
-					}, [values, setData])
+			<Formik enableReinitialize initialValues={data} onSubmit={() => {}}>
+				{({ values }) => {
+					useEffect(() => {
+						handleValuesChange(values)
+					}, [values])
 
 					return (
 						<Form className={styles.formLayout}>
@@ -100,44 +96,7 @@ export const ResumeForm = ({ data, setData }) => {
 									/>
 								</div>
 							</div>
-							<div className={styles.formSection}>
-								<h3 className={styles.sectionTitle}>Детальная информация</h3>
 
-								<InputField
-									name='skills'
-									placeholder='Профессиональные навыки (через запятую)'
-									as='textarea'
-									rows={3}
-								/>
-
-								<InputField
-									name='summary'
-									placeholder='О себе'
-									as='textarea'
-									rows={4}
-								/>
-
-								<InputField
-									name='experience'
-									placeholder='Опыт работы'
-									as='textarea'
-									rows={6}
-								/>
-
-								<InputField
-									name='education'
-									placeholder='Образование'
-									as='textarea'
-									rows={4}
-								/>
-
-								<InputField
-									name='contacts'
-									placeholder='Дополнительные контакты'
-									as='textarea'
-									rows={3}
-								/>
-							</div>
 							<div className={styles.formSection}>
 								<h3 className={styles.sectionTitle}>Контактная информация</h3>
 								<div className={styles.contactGrid}>
@@ -150,6 +109,71 @@ export const ResumeForm = ({ data, setData }) => {
 									/>
 								</div>
 							</div>
+
+							<div className={styles.formSection}>
+								<h3 className={styles.sectionTitle}>Детальная информация</h3>
+								<InputField
+									name='skills'
+									placeholder='Профессиональные навыки (через запятую)'
+									as='textarea'
+									rows={3}
+								/>
+								<InputField
+									name='experience'
+									placeholder='Опыт работы'
+									as='textarea'
+									rows={6}
+								/>
+								<InputField
+									name='summary'
+									placeholder='О себе'
+									as='textarea'
+									rows={4}
+								/>
+								<InputField
+									name='education'
+									placeholder='Образование'
+									as='textarea'
+									rows={4}
+								/>
+								<InputField
+									name='contacts'
+									placeholder='Дополнительные контакты'
+									as='textarea'
+									rows={3}
+								/>
+							</div>
+
+							<div className={styles.formSection}>
+								<h3 className={styles.sectionTitle}>Опыт работы</h3>
+								<Button
+									onClick={() => setShowExperienceModal(true)}
+									type='button'
+									variant='secondary'
+									// className={styles.addExperienceButton}
+								>
+									Добавить опыт работы
+								</Button>
+
+								{showExperienceModal && (
+									<WorkExperienceModal
+										onClose={() => setShowExperienceModal(false)}
+										onSave={(exp) => {
+											handleAddExperience(exp)
+											setShowExperienceModal(false)
+										}}
+									/>
+								)}
+
+								<ul className={styles.experienceList}>
+									{(values.experience || []).map((exp, idx) => (
+										<li key={idx}>
+											<b>{exp.company}</b>, {exp.role} ({exp.duration})
+										</li>
+									))}
+								</ul>
+							</div>
+
 							<DownloadButton />
 						</Form>
 					)

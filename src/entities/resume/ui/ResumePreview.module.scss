@@ -233,3 +233,31 @@
 		display: none;
 	}
 }
+
+.experienceList {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.experienceItem {
+	padding-bottom: 1rem;
+	border-bottom: 1px solid $medium-gray;
+}
+
+.jobTitle {
+	font-weight: bold;
+	color: $primary-color;
+	margin: 0;
+}
+
+.company {
+	font-weight: normal;
+	color: $dark-gray;
+}
+
+.jobDuration {
+	font-size: 0.95rem;
+	color: $dark-gray;
+	margin-bottom: 0.5rem;
+}
