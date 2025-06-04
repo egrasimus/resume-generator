@@ -119,12 +119,6 @@ export const ResumeForm = ({ data, setData }) => {
 									rows={3}
 								/>
 								<InputField
-									name='experience'
-									placeholder='Опыт работы'
-									as='textarea'
-									rows={6}
-								/>
-								<InputField
 									name='summary'
 									placeholder='О себе'
 									as='textarea'
@@ -166,11 +160,52 @@ export const ResumeForm = ({ data, setData }) => {
 								)}
 
 								<ul className={styles.experienceList}>
-									{(values.experience || []).map((exp, idx) => (
-										<li key={idx}>
-											<b>{exp.company}</b>, {exp.role} ({exp.duration})
-										</li>
-									))}
+									{(values.experience || []).map((exp, idx) => {
+										const getDuration = (start, end) => {
+											const startDate = new Date(start)
+											const endDate = end ? new Date(end) : new Date()
+											let years =
+												endDate.getFullYear() - startDate.getFullYear()
+											let months = endDate.getMonth() - startDate.getMonth()
+
+											if (months < 0) {
+												years--
+												months += 12
+											}
+											const yearsStr = years > 0 ? `${years} г.` : ""
+											const monthsStr = months > 0 ? `${months} мес.` : ""
+											return (
+												`${yearsStr}${
+													yearsStr && monthsStr ? " " : ""
+												}${monthsStr}` || "0 мес."
+											)
+										}
+
+										return (
+											<li key={idx} className={styles.experienceItem}>
+												<div className={styles.companyRole}>
+													<b className={styles.company}>{exp.company}</b>,{" "}
+													<span className={styles.role}>{exp.role}</span>
+												</div>
+												<div className={styles.durationAndActions}>
+													<span className={styles.duration}>
+														{getDuration(exp.startDate, exp.endDate)}
+													</span>
+													<button
+														type='button'
+														className={styles.editButton}
+														onClick={() => {
+															// Твой код для открытия модального окна редактирования
+															// например, setEditingExperience(idx)
+														}}
+														aria-label={`Редактировать опыт работы в ${exp.company}`}
+													>
+														✏️
+													</button>
+												</div>
+											</li>
+										)
+									})}
 								</ul>
 							</div>
 
