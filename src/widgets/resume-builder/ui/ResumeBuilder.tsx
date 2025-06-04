@@ -1,7 +1,7 @@
 import { ResumeForm, ResumePreview, useResumeState } from "@/entities/resume"
-import { DownloadButton } from "@/features/download-pdf"
+import type { FC } from "react"
 
-export const ResumeBuilder = () => {
+export const ResumeBuilder: FC = () => {
 	const { data, setData } = useResumeState()
 
 	return (

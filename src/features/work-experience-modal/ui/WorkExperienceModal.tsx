@@ -1,10 +1,19 @@
-import { useState } from "react"
+import { useState, type ChangeEvent, type FC } from "react"
 import styles from "./WorkExperienceModal.module.scss"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import type { JobExperience } from "@/shared/types"
 
-export const WorkExperienceModal = ({ onClose, onSave }) => {
-	const [experience, setExperience] = useState({
+interface WorkExperienceModalProps {
+	onClose: () => void
+	onSave: (exp: JobExperience) => void
+}
+
+export const WorkExperienceModal: FC<WorkExperienceModalProps> = ({
+	onClose,
+	onSave,
+}) => {
+	const [experience, setExperience] = useState<JobExperience>({
 		company: "",
 		role: "",
 		startDate: null,
@@ -12,17 +21,22 @@ export const WorkExperienceModal = ({ onClose, onSave }) => {
 		description: "",
 	})
 
-	const handleChange = (e) => {
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
 		const { name, value } = e.target
 		setExperience((prev) => ({ ...prev, [name]: value }))
 	}
 
-	const handleStartDateChange = (date) => {
-		setExperience((prev) => ({ ...prev, startDate: date.toISOString() }))
+	const handleStartDateChange = (date: Date | null) => {
+		setExperience((prev) => ({
+			...prev,
+			startDate: date?.toISOString() || null,
+		}))
 	}
 
-	const handleEndDateChange = (date) => {
-		setExperience((prev) => ({ ...prev, endDate: date.toISOString() }))
+	const handleEndDateChange = (date: Date | null) => {
+		setExperience((prev) => ({ ...prev, endDate: date?.toISOString() || null }))
 	}
 
 	const handleSubmit = () => {
@@ -55,7 +69,9 @@ export const WorkExperienceModal = ({ onClose, onSave }) => {
 					<div>
 						<label>Начало работы:</label>
 						<DatePicker
-							selected={experience.startDate}
+							selected={
+								experience.startDate ? new Date(experience.startDate) : null
+							}
 							onChange={handleStartDateChange}
 							dateFormat='dd/MM/yyyy'
 							placeholderText='Выберите дату'
@@ -64,7 +80,9 @@ export const WorkExperienceModal = ({ onClose, onSave }) => {
 					<div>
 						<label>Окончание работы:</label>
 						<DatePicker
-							selected={experience.endDate}
+							selected={
+								experience.endDate ? new Date(experience.endDate) : null
+							}
 							onChange={handleEndDateChange}
 							dateFormat='dd/MM/yyyy'
 							placeholderText='Выберите дату'

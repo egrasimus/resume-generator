@@ -1,8 +1,9 @@
-import React from "react"
+import { type FC } from "react"
 import styles from "./ResumePreview.module.scss"
 import { calculateDuration } from "@/shared/utils/dateUtils"
+import type { ResumeData } from "@/shared/types"
 
-const formatDate = (date) =>
+const formatDate = (date?: string) =>
 	date
 		? new Date(date).toLocaleDateString("ru-RU", {
 				day: "2-digit",
@@ -11,7 +12,11 @@ const formatDate = (date) =>
 		  })
 		: "..."
 
-export const ResumePreview = ({ data }) => {
+interface ResumePreviewProps {
+	data: ResumeData
+}
+
+export const ResumePreview: FC<ResumePreviewProps> = ({ data }) => {
 	return (
 		<div id='resume-preview' className={styles.resumeContainer}>
 			{/* Шапка */}
@@ -116,8 +121,8 @@ export const ResumePreview = ({ data }) => {
 									<span className={styles.company}>{job.company}</span>
 								</h3>
 								<div className={styles.jobDuration}>{`${formatDate(
-									job.startDate
-								)} - ${formatDate(job.endDate)} (${calculateDuration(
+									job.startDate || ""
+								)} - ${formatDate(job.endDate || "")} (${calculateDuration(
 									job.startDate,
 									job.endDate
 								)})`}</div>

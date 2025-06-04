@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, type FC } from "react"
 import { Formik, Form, Field } from "formik"
 import styles from "./ResumeForm.module.scss"
 import { DownloadButton } from "@/features/download-pdf"
 import { WorkExperienceModal } from "@/features/work-experience-modal/ui/WorkExperienceModal"
 import { Button } from "@/shared/ui-components/button"
+import type { JobExperience, ResumeData } from "@/shared/types"
 
 const STORAGE_KEY = "resumeFormData"
 
-const saveToStorage = (data) => {
+const saveToStorage = (data: ResumeData) => {
 	try {
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
 	} catch (error) {
@@ -15,7 +16,15 @@ const saveToStorage = (data) => {
 	}
 }
 
-const InputField = ({
+interface InputFieldProps {
+	name: keyof ResumeData
+	placeholder: string
+	type?: string
+	as?: "input" | "textarea"
+	rows?: number
+}
+
+const InputField: FC<InputFieldProps> = ({
 	name,
 	placeholder,
 	type = "text",
@@ -40,17 +49,22 @@ const InputField = ({
 	</div>
 )
 
-export const ResumeForm = ({ data, setData }) => {
+interface ResumeFormProps {
+	data: ResumeData
+	setData: (data: ResumeData) => void
+}
+
+export const ResumeForm: FC<ResumeFormProps> = ({ data, setData }) => {
 	const [showExperienceModal, setShowExperienceModal] = useState(false)
 
-	const handleAddExperience = (newExp) => {
+	const handleAddExperience = (newExp: JobExperience) => {
 		const newExperience = [...(data.experience || []), newExp]
 		const newData = { ...data, experience: newExperience }
 		setData(newData)
 		saveToStorage(newData)
 	}
 
-	const handleValuesChange = (values) => {
+	const handleValuesChange = (values: ResumeData) => {
 		setData(values)
 		saveToStorage(values)
 	}
@@ -152,7 +166,7 @@ export const ResumeForm = ({ data, setData }) => {
 								{showExperienceModal && (
 									<WorkExperienceModal
 										onClose={() => setShowExperienceModal(false)}
-										onSave={(exp) => {
+										onSave={(exp: JobExperience) => {
 											handleAddExperience(exp)
 											setShowExperienceModal(false)
 										}}
@@ -161,8 +175,11 @@ export const ResumeForm = ({ data, setData }) => {
 
 								<ul className={styles.experienceList}>
 									{(values.experience || []).map((exp, idx) => {
-										const getDuration = (start, end) => {
-											const startDate = new Date(start)
+										const getDuration = (
+											start: string | null,
+											end: string | null
+										) => {
+											const startDate = new Date(start || "")
 											const endDate = end ? new Date(end) : new Date()
 											let years =
 												endDate.getFullYear() - startDate.getFullYear()

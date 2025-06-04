@@ -1,9 +1,14 @@
+import type { ResumeData } from "@/shared/types"
 import { useState } from "react"
-import type { ResumeData } from "./types"
 
 const STORAGE_KEY = "resumeFormData"
 
-export const useResumeState = () => {
+interface useResumeStateResult {
+	data: ResumeData
+	setData: (data: ResumeData) => void
+}
+
+export const useResumeState = (): useResumeStateResult => {
 	const loadFromStorage = () => {
 		try {
 			const saved = localStorage.getItem(STORAGE_KEY)

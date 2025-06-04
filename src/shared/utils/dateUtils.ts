@@ -1,18 +1,21 @@
-const getYearWord = (n) => {
+const getYearWord = (n: number): string => {
 	if (n % 10 === 1 && n % 100 !== 11) return "год"
 	if ([2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100))
 		return "года"
 	return "лет"
 }
 
-export const getMonthWord = (n) => {
+export const getMonthWord = (n: number): string => {
 	if (n % 10 === 1 && n % 100 !== 11) return "месяц"
 	if ([2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100))
 		return "месяца"
 	return "месяцев"
 }
 
-export const calculateDuration = (start, end) => {
+export const calculateDuration = (
+	start?: string | Date | null,
+	end?: string | Date | null
+) => {
 	if (!start || !end) return ""
 
 	const startDate = new Date(start)
