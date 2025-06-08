@@ -27,34 +27,48 @@ export const ResumePreview: FC<ResumePreviewProps> = ({ data }) => {
 
 					<div className={styles.basicInfo}>
 						<div className={styles.infoRow}>
-							<span className={styles.label}>Местоположение:</span>
-							<span>{data.location}</span>
+							{data.location && (
+								<>
+									<span className={styles.label}>Местоположение:</span>
+									<span>{data.location}</span>
+								</>
+							)}
 						</div>
 						<div className={styles.infoRow}>
-							<span className={styles.label}>
-								Готовность к удаленной работе:
-							</span>
-							<span>{data.remoteReady}</span>
+							{data.remoteReady && (
+								<>
+									<span className={styles.label}>
+										Готовность к удаленной работе:
+									</span>
+									<span>{data.remoteReady}</span>
+								</>
+							)}
 						</div>
 					</div>
 
 					<div className={styles.professionalInfo}>
 						<div className={styles.infoGrid}>
-							<div className={styles.infoItem}>
-								<span className={styles.label}>Стаж:</span>
-								<span>{data.experienceYears}</span>
-							</div>
-							<div className={styles.infoItem}>
-								<span className={styles.label}>Возраст:</span>
-								<span>{data.age}</span>
-							</div>
+							{data.experienceYears && (
+								<div className={styles.infoItem}>
+									<span className={styles.label}>Стаж:</span>
+									<span>{data.experienceYears}</span>
+								</div>
+							)}
+							{data.age && (
+								<div className={styles.infoItem}>
+									<span className={styles.label}>Возраст:</span>
+									<span>{data.age}</span>
+								</div>
+							)}
 						</div>
-						<div className={styles.salary}>
-							<span className={styles.label}>Зарплатные ожидания:</span>
-							<span className={styles.salaryAmount}>
-								{data.salaryExpectations}
-							</span>
-						</div>
+						{data.salaryExpectations && (
+							<div className={styles.salary}>
+								<span className={styles.label}>Зарплатные ожидания:</span>
+								<span className={styles.salaryAmount}>
+									{data.salaryExpectations}
+								</span>
+							</div>
+						)}
 					</div>
 				</div>
 
@@ -67,33 +81,37 @@ export const ResumePreview: FC<ResumePreviewProps> = ({ data }) => {
 
 			{/* Контактная информация */}
 			<div className={styles.section}>
-				<h2 className={styles.sectionTitle}>Контактная информация</h2>
-				<div className={styles.contactsGrid}>
-					{data.email && (
-						<div className={styles.contactItem}>
-							<span className={styles.contactLabel}>Email:</span>
-							<span>{data.email}</span>
+				{(data.email || data.phone || data.telegram || data.habr) && (
+					<>
+						<h2 className={styles.sectionTitle}>Контактная информация</h2>
+						<div className={styles.contactsGrid}>
+							{data.email && (
+								<div className={styles.contactItem}>
+									<span className={styles.contactLabel}>Email:</span>
+									<span>{data.email}</span>
+								</div>
+							)}
+							{data.phone && (
+								<div className={styles.contactItem}>
+									<span className={styles.contactLabel}>Телефон:</span>
+									<span>{data.phone}</span>
+								</div>
+							)}
+							{data.telegram && (
+								<div className={styles.contactItem}>
+									<span className={styles.contactLabel}>Telegram:</span>
+									<span>{data.telegram}</span>
+								</div>
+							)}
+							{data.habr && (
+								<div className={styles.contactItem}>
+									<span className={styles.contactLabel}>Хабр Карьера:</span>
+									<span>{data.habr}</span>
+								</div>
+							)}
 						</div>
-					)}
-					{data.phone && (
-						<div className={styles.contactItem}>
-							<span className={styles.contactLabel}>Телефон:</span>
-							<span>{data.phone}</span>
-						</div>
-					)}
-					{data.telegram && (
-						<div className={styles.contactItem}>
-							<span className={styles.contactLabel}>Telegram:</span>
-							<span>{data.telegram}</span>
-						</div>
-					)}
-					{data.habr && (
-						<div className={styles.contactItem}>
-							<span className={styles.contactLabel}>Хабр Карьера:</span>
-							<span>{data.habr}</span>
-						</div>
-					)}
-				</div>
+					</>
+				)}
 			</div>
 
 			{/* Навыки */}
