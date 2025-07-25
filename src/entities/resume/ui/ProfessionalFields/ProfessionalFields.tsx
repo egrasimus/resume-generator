@@ -3,7 +3,6 @@ import { InputField } from "../InputField"
 import styles from "./ProfessionalFields.module.scss"
 
 const professionalFields = [
-	{ name: "experienceYears", placeholder: "Стаж работы" },
 	{ name: "age", placeholder: "Возраст" },
 	{ name: "salaryExpectations", placeholder: "Зарплатные ожидания" },
 	{ name: "remoteReady", placeholder: "Готовность к удалённой работе" },

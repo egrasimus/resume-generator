@@ -13,7 +13,6 @@ const defaultResumeData: ResumeData = {
 	position: "",
 	location: "",
 	remoteReady: "",
-	experienceYears: "",
 	age: "",
 	salaryExpectations: "",
 	photoUrl: "",

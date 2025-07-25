@@ -11,19 +11,18 @@ export interface ResumeData {
 	position: string
 	location: string
 	remoteReady: string
-	experienceYears: string
 	age: string
 	salaryExpectations: string
-	photoUrl?: string
+	photoUrl: string
 
-	email?: string
-	phone?: string
-	telegram?: string
-	habr?: string
+	email: string
+	phone: string
+	telegram: string
+	habr: string
 
-	skills?: string
-	experience?: JobExperience[]
-	summary?: string
-	education?: string
-	contacts?: string
+	skills: string
+	experience: JobExperience[]
+	summary: string
+	education: string
+	contacts: string
 }
