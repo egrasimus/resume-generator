@@ -1,24 +1,36 @@
 import type { ResumeData } from "@/shared/types"
 import { useState } from "react"
-
-const STORAGE_KEY = "resumeFormData"
+import { loadResumeFromStorage } from "@/shared/utils/storageUtils"
 
 interface useResumeStateResult {
 	data: ResumeData
 	setData: (data: ResumeData) => void
 }
 
+const defaultResumeData: ResumeData = {
+	fullName: "",
+	position: "",
+	location: "",
+	remoteReady: "",
+	experienceYears: "",
+	age: "",
+	salaryExpectations: "",
+	photoUrl: "",
+	email: "",
+	phone: "",
+	telegram: "",
+	habr: "",
+	skills: "",
+	summary: "",
+	education: "",
+	contacts: "",
+	experience: [],
+}
+
 export const useResumeState = (): useResumeStateResult => {
-	const loadFromStorage = () => {
-		try {
-			const saved = localStorage.getItem(STORAGE_KEY)
-			if (saved) return JSON.parse(saved)
-		} catch (error) {
-			console.error("Ошибка при загрузке из localStorage:", error)
-		}
-		return {}
-	}
-	const [data, setData] = useState<ResumeData>(() => loadFromStorage())
+	const [data, setData] = useState<ResumeData>(
+		() => loadResumeFromStorage() || defaultResumeData
+	)
 
 	return { data, setData }
 }

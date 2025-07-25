@@ -5,16 +5,7 @@ import { DownloadButton } from "@/features/download-pdf"
 import { WorkExperienceModal } from "@/features/work-experience-modal/ui/WorkExperienceModal"
 import { Button } from "@/shared/ui-components/button"
 import type { JobExperience, ResumeData } from "@/shared/types"
-
-const STORAGE_KEY = "resumeFormData"
-
-const saveToStorage = (data: ResumeData) => {
-	try {
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-	} catch (error) {
-		console.error("Ошибка при сохранении данных в localStorage:", error)
-	}
-}
+import { saveResumeToStorage } from "@/shared/utils/storageUtils"
 
 interface InputFieldProps {
 	name: keyof ResumeData
@@ -61,12 +52,12 @@ export const ResumeForm: FC<ResumeFormProps> = ({ data, setData }) => {
 		const newExperience = [...(data.experience || []), newExp]
 		const newData = { ...data, experience: newExperience }
 		setData(newData)
-		saveToStorage(newData)
+		saveResumeToStorage(newData)
 	}
 
 	const handleValuesChange = (values: ResumeData) => {
 		setData(values)
-		saveToStorage(values)
+		saveResumeToStorage(values)
 	}
 
 	return (
