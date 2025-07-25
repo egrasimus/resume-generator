@@ -1,0 +1,48 @@
+@use "../../../../../shared/styles/variables.module.scss" as *;
+
+.section {
+	margin-bottom: 2rem;
+}
+
+.sectionTitle {
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: $text-color;
+	margin: 0 0 1rem 0;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid $border-color;
+}
+
+.experienceList {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.experienceItem {
+	background: #f5f5f5;
+	border-radius: 8px;
+	padding: 1rem;
+	box-shadow: 0 1px 3px rgb(0 0 0 / 0.07);
+}
+
+.jobTitle {
+	font-size: 1.1rem;
+	font-weight: 600;
+	margin-bottom: 0.3em;
+}
+
+.company {
+	font-weight: 700;
+}
+
+.jobDuration {
+	font-size: 0.95em;
+	color: #888;
+	margin-bottom: 0.5em;
+}
+
+.paragraph {
+	margin: 0;
+	color: #333;
+}

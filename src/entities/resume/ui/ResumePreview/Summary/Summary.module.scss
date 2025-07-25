@@ -1,0 +1,23 @@
+@use "../../../../../shared/styles/variables.module.scss" as *;
+
+.section {
+	margin-bottom: 2rem;
+}
+
+.sectionTitle {
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: $text-color;
+	margin: 0 0 1rem 0;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid $border-color;
+}
+
+.content {
+	margin-top: 0.5em;
+}
+
+.paragraph {
+	margin: 0 0 0.5em 0;
+	color: #333;
+}

@@ -1,0 +1,43 @@
+@use "../../../../../shared/styles/variables.module.scss" as *;
+
+.section {
+	margin-bottom: 2rem;
+}
+
+.sectionTitle {
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: $text-color;
+	margin: 0 0 1rem 0;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid $border-color;
+}
+
+.skills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.skillTag {
+	display: inline-block;
+	background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+	border-radius: 12px;
+	padding: 0.38em 1.3em;
+	font-size: 1em;
+	color: #fff;
+	font-weight: 600;
+	font-family: "Inter", "Segoe UI", Arial, sans-serif;
+	letter-spacing: 0.01em;
+	box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
+	transition: background 0.18s, box-shadow 0.18s, color 0.18s;
+	cursor: default;
+	user-select: none;
+
+	&:hover,
+	&:focus {
+		background: linear-gradient(90deg, #4f46e5 0%, #6366f1 100%);
+		box-shadow: 0 4px 16px rgba(99, 102, 241, 0.18);
+		color: #e0e7ff;
+	}
+}
