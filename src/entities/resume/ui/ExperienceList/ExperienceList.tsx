@@ -15,23 +15,44 @@ export const ExperienceList: FC<ExperienceListProps> = ({
 	<ul className={styles.experienceList}>
 		{(experience || []).map((exp, idx) => (
 			<li key={idx} className={styles.experienceItem}>
-				<div className={styles.companyRole}>
-					<b className={styles.company}>{exp.company}</b>,{" "}
-					<span className={styles.role}>{exp.role}</span>
-				</div>
-				<div className={styles.durationAndActions}>
-					<span className={styles.duration}>
-						{getDuration(exp.startDate, exp.endDate)}
-					</span>
+				<div className={styles.headerRow}>
+					<div>
+						<div className={styles.company}>{exp.company}</div>
+						<div className={styles.role}>{exp.role}</div>
+					</div>
 					<button
 						type='button'
 						className={styles.editButton}
 						onClick={() => onEdit && onEdit(idx)}
 						aria-label={`Редактировать опыт работы в ${exp.company}`}
+						title='Редактировать'
 					>
-						✏️
+						<span aria-hidden>✏️</span>
 					</button>
 				</div>
+				<div className={styles.duration}>
+					{getDuration(exp.startDate, exp.endDate)}
+					{exp.startDate && (
+						<>
+							{" ("}
+							{new Date(exp.startDate).toLocaleDateString("ru-RU", {
+								month: "short",
+								year: "numeric",
+							})}
+							{" — "}
+							{exp.endDate
+								? new Date(exp.endDate).toLocaleDateString("ru-RU", {
+										month: "short",
+										year: "numeric",
+								  })
+								: "по настоящее время"}
+							{")"}
+						</>
+					)}
+				</div>
+				{exp.description && (
+					<div className={styles.description}>{exp.description}</div>
+				)}
 			</li>
 		))}
 	</ul>

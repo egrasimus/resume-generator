@@ -16,10 +16,9 @@ export const calculateDuration = (
 	start?: string | Date | null,
 	end?: string | Date | null
 ) => {
-	if (!start || !end) return ""
-
+	if (!start) return ""
 	const startDate = new Date(start)
-	const endDate = new Date(end)
+	const endDate = end ? new Date(end) : new Date()
 
 	let years = endDate.getFullYear() - startDate.getFullYear()
 	let months = endDate.getMonth() - startDate.getMonth()

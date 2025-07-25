@@ -47,3 +47,18 @@
 		gap: 1.5rem;
 	}
 }
+
+.sectionTitle {
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: #3730a3;
+	margin: 0 0 1rem 0;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid #e0e7ef;
+}
+
+.formSection {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}

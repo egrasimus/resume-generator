@@ -3,15 +3,6 @@ import styles from "./Experience.module.scss"
 import { calculateDuration } from "@/shared/utils/dateUtils"
 import type { ResumeData } from "@/shared/types"
 
-const formatDate = (date?: string) =>
-	date
-		? new Date(date).toLocaleDateString("ru-RU", {
-				day: "2-digit",
-				month: "2-digit",
-				year: "numeric",
-		  })
-		: "..."
-
 interface ExperienceProps {
 	experience?: ResumeData["experience"]
 }
@@ -21,20 +12,40 @@ export const Experience: FC<ExperienceProps> = ({ experience }) =>
 		<div className={styles.section}>
 			<h2 className={styles.sectionTitle}>Опыт работы</h2>
 			<div className={styles.experienceList}>
-				{experience.map((job, index) => (
-					<div key={index} className={styles.experienceItem}>
-						<h3 className={styles.jobTitle}>
-							{job.role} — <span className={styles.company}>{job.company}</span>
-						</h3>
-						<div className={styles.jobDuration}>{`${formatDate(
-							job.startDate || ""
-						)} - ${formatDate(job.endDate || "")} (${calculateDuration(
-							job.startDate,
-							job.endDate
-						)})`}</div>
-						<p className={styles.paragraph}>{job.description}</p>
-					</div>
-				))}
+				{experience.map((job, index) => {
+					const durationStr = calculateDuration(job.startDate, job.endDate)
+					return (
+						<div key={index} className={styles.experienceItem}>
+							<div className={styles.headerRow}>
+								<div className={styles.company}>{job.company}</div>
+								<div className={styles.role}>{job.role}</div>
+							</div>
+							<div className={styles.jobDuration}>
+								{job.startDate
+									? new Date(job.startDate).toLocaleDateString("ru-RU", {
+											month: "short",
+											year: "numeric",
+									  })
+									: "—"}
+								{" — "}
+								{job.endDate
+									? new Date(job.endDate).toLocaleDateString("ru-RU", {
+											month: "short",
+											year: "numeric",
+									  })
+									: "по настоящее время"}
+								{durationStr && (
+									<span className={styles.duration}>
+										{`  • ${durationStr}`}
+									</span>
+								)}
+							</div>
+							{job.description && (
+								<div className={styles.description}>{job.description}</div>
+							)}
+						</div>
+					)
+				})}
 			</div>
 		</div>
 	) : null
