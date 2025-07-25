@@ -34,3 +34,20 @@ export const calculateDuration = (
 
 	return [yearStr, monthStr].filter(Boolean).join(" ")
 }
+
+// Возвращает строку вида 'X г. Y мес.' для разницы между start и end
+export function getDuration(start: string | null, end: string | null): string {
+	const startDate = new Date(start || "")
+	const endDate = end ? new Date(end) : new Date()
+	let years = endDate.getFullYear() - startDate.getFullYear()
+	let months = endDate.getMonth() - startDate.getMonth()
+	if (months < 0) {
+		years--
+		months += 12
+	}
+	const yearsStr = years > 0 ? `${years} г.` : ""
+	const monthsStr = months > 0 ? `${months} мес.` : ""
+	return (
+		`${yearsStr}${yearsStr && monthsStr ? " " : ""}${monthsStr}` || "0 мес."
+	)
+}
